@@ -24,9 +24,13 @@ const riskLabels: Record<RiskLevel, string> = {
   bajo: 'Bajo',
 };
 
-function compareRiskId(a: string, b: string): number {
-  const [aMajor, aMinor] = a.split('.').map(Number);
-  const [bMajor, bMinor] = b.split('.').map(Number);
+function compareRiskByMagnitude(
+  a: { id: string; magnitude: number },
+  b: { id: string; magnitude: number },
+): number {
+  if (b.magnitude !== a.magnitude) return b.magnitude - a.magnitude;
+  const [aMajor, aMinor] = a.id.split('.').map(Number);
+  const [bMajor, bMinor] = b.id.split('.').map(Number);
   return aMajor - bMajor || aMinor - bMinor;
 }
 
@@ -274,7 +278,7 @@ app.innerHTML = `
           </thead>
           <tbody>
             ${[...project.risks]
-              .sort((a, b) => compareRiskId(a.id, b.id))
+              .sort(compareRiskByMagnitude)
               .map(
                 (r) => `
               <tr>
@@ -294,7 +298,7 @@ app.innerHTML = `
         </table>
       </div>
       <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted)">
-        Fuente: Plantilla 2.2.4 Registro de Riesgos — ${project.risks.length} riesgos registrados, ordenados por ID (1.1 → 5.4).
+        Fuente: Plantilla 2.2.4 Registro de Riesgos — ${project.risks.length} riesgos registrados, ordenados por magnitud (mayor a menor).
       </p>
     </div>
   </section>
