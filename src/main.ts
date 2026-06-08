@@ -24,6 +24,12 @@ const riskLabels: Record<RiskLevel, string> = {
   bajo: 'Bajo',
 };
 
+function compareRiskId(a: string, b: string): number {
+  const [aMajor, aMinor] = a.split('.').map(Number);
+  const [bMajor, bMinor] = b.split('.').map(Number);
+  return aMajor - bMajor || aMinor - bMinor;
+}
+
 function formatDate(iso: string): string {
   return new Date(iso + 'T12:00:00').toLocaleDateString('es-CL', {
     day: 'numeric',
@@ -267,8 +273,8 @@ app.innerHTML = `
             </tr>
           </thead>
           <tbody>
-            ${project.risks
-              .sort((a, b) => b.magnitude - a.magnitude)
+            ${[...project.risks]
+              .sort((a, b) => compareRiskId(a.id, b.id))
               .map(
                 (r) => `
               <tr>
@@ -288,8 +294,7 @@ app.innerHTML = `
         </table>
       </div>
       <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted)">
-        Fuente: Plantilla 2.2.4 Registro de Riesgos — ${project.kpis.totalRisks} riesgos identificados en total.
-        Se muestran los ${project.risks.length} de mayor relevancia.
+        Fuente: Plantilla 2.2.4 Registro de Riesgos — ${project.risks.length} riesgos registrados, ordenados por ID (1.1 → 5.4).
       </p>
     </div>
   </section>
