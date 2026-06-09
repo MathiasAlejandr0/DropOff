@@ -670,6 +670,118 @@ tr:hover td {
   color: var(--text-muted);
 }
 
+/* Architecture */
+.arch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.arch-card {
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.arch-card__name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.arch-card__desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Incident flow */
+.flow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.flow-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.85rem;
+  background: var(--surface-2);
+  border-radius: 8px;
+}
+
+.flow-step__num {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 0.35rem 0.55rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.flow-step strong {
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.flow-step p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Simulations */
+.sim-date {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.sim-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.sim-outcome {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 0.75rem;
+  background: var(--surface-2);
+  border-radius: 8px;
+  border-left: 3px solid var(--success);
+}
+
+/* Conclusions */
+.conclusion-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.conclusion-list li {
+  font-size: 0.95rem;
+  padding: 1rem 1rem 1rem 1.25rem;
+  background: var(--surface-2);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.conclusion-list li:last-child {
+  border-left-color: var(--success);
+  color: var(--text);
+}
+
 /* Footer */
 .footer {
   text-align: center;

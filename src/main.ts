@@ -65,9 +65,12 @@ app.innerHTML = `
     <a href="#graficos">Gráficos</a>
     <a href="#etapas">Etapas</a>
     <a href="#demo">Demo</a>
+    <a href="#simulacion">Simulación</a>
     <a href="#requerimientos">Requerimientos</a>
     <a href="#riesgos">Riesgos</a>
+    <a href="#mitigacion">Mitigación</a>
     <a href="#proyecto">Proyecto</a>
+    <a href="#conclusiones">Conclusiones</a>
     <a href="#equipo">Equipo</a>
     <a href="#documentos">Documentos</a>
   </nav>
@@ -79,7 +82,7 @@ app.innerHTML = `
         <div class="kpi-card__label">Avance General</div>
         <div class="kpi-card__value">${project.kpis.overallProgress}%</div>
         <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--accent" style="width:${project.kpis.overallProgress}%"></div></div>
-        <div class="kpi-card__detail">Estimado según bitácora de avance</div>
+        <div class="kpi-card__detail">Según presentación ejecutiva y bitácora</div>
       </div>
       <div class="kpi-card kpi-card--success">
         <div class="kpi-card__label">Requerimientos Evaluación</div>
@@ -91,7 +94,7 @@ app.innerHTML = `
         <div class="kpi-card__label">Avance por Etapas</div>
         <div class="kpi-card__value">${project.kpis.stageProgress}%</div>
         <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--accent" style="width:${project.kpis.stageProgress}%"></div></div>
-        <div class="kpi-card__detail">Etapa ${project.currentStage.index}/${project.currentStage.total} en curso</div>
+        <div class="kpi-card__detail">Etapa ${project.currentStage.index}/${project.currentStage.total} — proyecto en cierre</div>
       </div>
       <div class="kpi-card kpi-card--danger">
         <div class="kpi-card__label">Riesgos Críticos</div>
@@ -229,11 +232,57 @@ app.innerHTML = `
         </div>
       </div>
       <div class="card">
-        <h3>Logros técnicos</h3>
-        <ul class="check-list">
-          ${project.achievements.map((a) => `<li>${a}</li>`).join('')}
-        </ul>
+        <h3>Arquitectura del sistema</h3>
+        <div class="arch-grid">
+          ${project.architecture
+            .map(
+              (a) => `
+            <div class="arch-card">
+              <span class="arch-card__name">${a.component}</span>
+              <span class="arch-card__desc">${a.description}</span>
+            </div>`
+            )
+            .join('')}
+        </div>
       </div>
+      <div class="card">
+        <h3>Flujo de respuesta ante incidentes</h3>
+        <div class="flow-steps">
+          ${project.incidentFlow
+            .map(
+              (f) => `
+            <div class="flow-step">
+              <span class="flow-step__num">${f.step}</span>
+              <div>
+                <strong>${f.title}</strong>
+                <p>${f.description}</p>
+              </div>
+            </div>`
+            )
+            .join('')}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="simulacion" class="section">
+    <h2 class="section__title">Simulaciones de Incidentes</h2>
+    <div class="grid-2">
+      ${project.simulations
+        .map(
+          (s) => `
+        <div class="card">
+          <h3>${s.title}</h3>
+          <p class="sim-date">${formatDate(s.date)}</p>
+          <p class="sim-desc">${s.description}</p>
+          <h4 style="margin:1rem 0 0.5rem;font-size:0.85rem;color:var(--accent)">Acciones ejecutadas</h4>
+          <ul class="check-list">
+            ${s.actions.map((a) => `<li>${a}</li>`).join('')}
+          </ul>
+          <p class="sim-outcome"><strong>Resultado:</strong> ${s.outcome}</p>
+        </div>`
+        )
+        .join('')}
     </div>
   </section>
 
@@ -298,7 +347,41 @@ app.innerHTML = `
         </table>
       </div>
       <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted)">
-        Fuente: Plantilla 2.2.4 Registro de Riesgos — ${project.risks.length} riesgos registrados, ordenados por magnitud (mayor a menor).
+        Fuente: Plantilla 2.2.4 y presentación ejecutiva — ${project.kpis.risksIdentified} riesgos identificados, ${project.risks.length} en registro activo, ordenados por magnitud.
+      </p>
+    </div>
+  </section>
+
+  <section id="mitigacion" class="section">
+    <h2 class="section__title">Planes de Mitigación</h2>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Riesgo</th>
+              <th>Acción Preventiva</th>
+              <th>Acción Correctiva</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${project.mitigationPlans
+              .map(
+                (m) => `
+              <tr>
+                <td style="font-family:'JetBrains Mono',monospace">${m.riskId}</td>
+                <td>${m.risk}</td>
+                <td>${m.preventive}</td>
+                <td>${m.corrective}</td>
+              </tr>`
+              )
+              .join('')}
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted)">
+        Planes definidos en la presentación ejecutiva para riesgos críticos. Cada riesgo posee medidas de mitigación y continuidad operacional.
       </p>
     </div>
   </section>
@@ -311,6 +394,9 @@ app.innerHTML = `
         <div class="context-block">
           <h4>Problemática</h4>
           <p>${project.context.problem}</p>
+          <ul class="check-list check-list--pending" style="margin-top:0.5rem">
+            ${project.context.problemPoints.map((p) => `<li>${p}</li>`).join('')}
+          </ul>
         </div>
         <div class="context-block">
           <h4>Solución propuesta</h4>
@@ -375,6 +461,15 @@ app.innerHTML = `
     </div>
   </section>
 
+  <section id="conclusiones" class="section">
+    <h2 class="section__title">Conclusiones del Proyecto</h2>
+    <div class="card">
+      <ul class="conclusion-list">
+        ${project.conclusions.map((c) => `<li>${c}</li>`).join('')}
+      </ul>
+    </div>
+  </section>
+
   <section id="documentos" class="section">
     <h2 class="section__title">Documentos en Google Drive</h2>
     <div class="card">
@@ -404,6 +499,7 @@ app.innerHTML = `
       Dashboard generado para <strong>${project.meta.name}</strong> ·
       Datos extraídos de la
       <a href="${project.meta.driveFolderUrl}" target="_blank" rel="noopener noreferrer">carpeta de gestión de riesgos</a>
+      y la presentación ejecutiva PPT
     </p>
   </footer>
 `;

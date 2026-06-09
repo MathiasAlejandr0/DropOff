@@ -90,11 +90,23 @@ export interface ProjectData {
   }[];
   context: {
     problem: string;
+    problemPoints: string[];
     solution: string;
     scope: string;
     functionalRequirements: string[];
     nonFunctionalRequirements: string[];
   };
+  architecture: { component: string; description: string }[];
+  incidentFlow: { step: string; title: string; description: string }[];
+  mitigationPlans: { risk: string; riskId: string; preventive: string; corrective: string }[];
+  simulations: {
+    title: string;
+    date: string;
+    description: string;
+    actions: string[];
+    outcome: string;
+  }[];
+  conclusions: string[];
 }
 
 function riskLevel(magnitude: number): RiskLevel {
@@ -125,6 +137,12 @@ export const project: ProjectData = {
     lastUpdated: '2026-06-09',
   },
   driveFiles: [
+    {
+      name: 'Presentación ejecutiva.pptx',
+      type: 'PowerPoint',
+      fileId: '18aLdvsS-Cs3VQjDhdU8OX5f0Rhk3Ew9K',
+      url: 'https://drive.google.com/file/d/18aLdvsS-Cs3VQjDhdU8OX5f0Rhk3Ew9K/view',
+    },
     {
       name: 'demo_procesada.mp4',
       type: 'Video Demo',
@@ -163,32 +181,32 @@ export const project: ProjectData = {
     },
   ],
   currentStage: {
-    name: 'Integración y Visualización',
+    name: 'Presentación Ejecutiva y Cierre',
     description:
-      'Etapa avanzada enfocada en dashboard visual, formalización de procedimientos y preparación ejecutiva para la evaluación final.',
-    index: 4,
+      'Presentación PPT completada con arquitectura, simulaciones, planes de mitigación y conclusiones del proyecto.',
+    index: 5,
     total: 5,
   },
   kpis: {
-    overallProgress: 82,
-    requirementsProgress: 71,
-    stageProgress: 72,
-    totalRisks: 28,
+    overallProgress: 90,
+    requirementsProgress: 93,
+    stageProgress: 96,
+    totalRisks: 29,
     criticalRisks: 3,
     highRisks: 12,
     mediumRisks: 9,
     lowRisks: 4,
     activeRisks: 22,
-    risksIdentified: 28,
+    risksIdentified: 29,
     daysRemaining: 0,
     daysElapsed: 65,
     framesProcessed: 300,
     incidentThresholdSeconds: 10,
-    documentsDelivered: 6,
+    documentsDelivered: 7,
     teamMembers: 6,
   },
   chartData: {
-    requirementCounts: { logrado: 4, parcial: 2, pendiente: 1 },
+    requirementCounts: { logrado: 6, parcial: 1, pendiente: 0 },
     risksByLevel: { critico: 3, alto: 12, medio: 9, bajo: 4 },
     risksByCategory: {
       Técnico: 7,
@@ -197,37 +215,37 @@ export const project: ProjectData = {
       Organizacional: 5,
       'Seguridad y Cumplimiento': 5,
     },
-    stageProgress: [100, 100, 65, 75, 10],
+    stageProgress: [100, 100, 95, 95, 90],
     timeline: {
-      labels: ['Abr 05', 'Abr 15', 'May 01', 'May 15', 'Jun 01', 'Jun 08'],
-      progress: [10, 25, 40, 55, 68, 82],
+      labels: ['Abr 05', 'Abr 15', 'May 01', 'May 15', 'Jun 01', 'Jun 08', 'Jun 09'],
+      progress: [10, 25, 40, 55, 68, 82, 90],
     },
   },
   stages: [
     {
       name: 'Planificación y Gestión de Riesgos',
       status: 'completada',
-      description: 'Plantilla de riesgos, matriz probabilidad-impacto y registro formal.',
+      description: '29 riesgos identificados, matriz probabilidad-impacto y responsables asignados.',
     },
     {
       name: 'Desarrollo del Sistema IA',
       status: 'completada',
-      description: 'YOLOv8 + OpenCV en Colab: detección, tracking y alertas automáticas.',
+      description: 'YOLOv8 + OpenCV: detección, tracking persistente y alertas MULTA automáticas.',
     },
     {
       name: 'Simulación de Incidentes',
-      status: 'en_progreso',
-      description: 'Demo funcional con video procesado; falta formalizar protocolo de respuesta.',
+      status: 'completada',
+      description: 'Escenarios simulados: infracción vehicular en video y caída del sistema (30 jul 2026).',
     },
     {
       name: 'Dashboard y Visualización',
-      status: 'en_progreso',
-      description: 'Tablero interactivo con KPIs, gráficos Chart.js y riesgos — desplegado en GitHub Pages.',
+      status: 'completada',
+      description: 'Dashboard interactivo con KPIs, gráficos Chart.js — publicado en GitHub Pages.',
     },
     {
       name: 'Presentación Ejecutiva',
-      status: 'pendiente',
-      description: 'Demo final, métricas consolidadas y entrega para evaluación.',
+      status: 'completada',
+      description: 'Presentación PPT con arquitectura, mitigación, simulaciones y conclusiones.',
     },
   ],
   requirements: [
@@ -252,26 +270,26 @@ export const project: ProjectData = {
     {
       id: '3.4',
       name: 'Simulación de incidentes',
-      status: 'parcial',
-      description: 'Detección de permanencia excesiva y alertas automáticas en video.',
+      status: 'logrado',
+      description: 'Escenario de infracción vehicular en video y simulación de caída del sistema documentados.',
     },
     {
       id: '3.5',
       name: 'Dashboard visual de riesgos',
-      status: 'parcial',
-      description: 'Dashboard interactivo con gráficos de riesgos, requerimientos y timeline.',
+      status: 'logrado',
+      description: 'Dashboard interactivo con KPIs, gráficos, riesgos y timeline en GitHub Pages.',
     },
     {
       id: '3.6',
       name: 'Planes preventivos y correctivos',
-      status: 'pendiente',
-      description: 'Acciones de mitigación y continuidad operacional por riesgo.',
+      status: 'parcial',
+      description: 'Planes definidos para 4 riesgos críticos (IA, software, caída sistema, ciberataque).',
     },
     {
       id: '3.7',
       name: 'Presentación ejecutiva',
-      status: 'pendiente',
-      description: 'Demo, dashboard, métricas y resultados para evaluación final.',
+      status: 'logrado',
+      description: 'Presentación PPT de 10 diapositivas con demo, KPIs, simulaciones y conclusiones.',
     },
   ],
   technologies: [
@@ -279,24 +297,25 @@ export const project: ProjectData = {
     'OpenCV',
     'Python',
     'Google Colab',
+    'Chart.js',
+    'GitHub Pages',
     'Detección de vehículos (clases 2 y 7 COCO)',
     'Tracking persistente con IDs únicos',
-    'Procesamiento de video frame a frame',
+    'Procesamiento de video en tiempo real (300+ frames)',
   ],
   achievements: [
-    'Sistema funcional en Colab con detección y seguimiento de vehículos.',
-    'Alertas automáticas tipo MULTA al superar umbral de permanencia.',
-    'Video demo procesado (demo_procesada.mp4) con 300+ frames analizados.',
-    'Plantilla formal de registro y seguimiento de 28 riesgos identificados.',
-    'Matriz de probabilidad e impacto con clasificación por criticidad.',
-    'Bitácora de avance documentada con logros y trabajo pendiente.',
-    'Dashboard interactivo con KPIs y gráficos Chart.js desplegado en GitHub Pages.',
+    'Sistema IA funcional con detección, tracking y alertas MULTA automáticas.',
+    'Video demo procesado (demo_procesada.mp4) con 300+ frames en tiempo real.',
+    '29 riesgos identificados y clasificados con matriz cuantitativa.',
+    'Dashboard interactivo publicado en GitHub Pages con KPIs y gráficos.',
+    'Simulación de infracción vehicular con respuesta automática del sistema.',
+    'Simulación de caída del sistema con plan correctivo ejecutado (30 jul 2026).',
+    'Planes de mitigación definidos para riesgos críticos del proyecto.',
+    'Presentación ejecutiva PPT completada para evaluación final.',
   ],
   pendingWork: [
-    'Incorporar planes preventivos y correctivos en la plantilla de riesgos.',
-    'Formalizar protocolo de respuesta ante incidentes simulados.',
-    'Incorporar planes de mitigación por cada riesgo en la plantilla.',
-    'Preparar presentación ejecutiva con demo, métricas y conclusiones.',
+    'Completar planes preventivos y correctivos para los riesgos restantes en la plantilla.',
+    'Escalar la solución a otros contextos institucionales según conclusiones del proyecto.',
   ],
   risks: [
     { id: '1.1', name: 'Fallas de hardware', category: 'Técnico', probability: 'Media', impact: 'Alto', magnitude: 6, level: riskLevel(6), responsible: 'Andrés Muñoz', status: 'Identificado' },
@@ -336,11 +355,93 @@ export const project: ProjectData = {
     { role: 'Cliente', name: 'Patricia Soto', responsibility: 'Validación de requerimientos y entregables.' },
     { role: 'Usuario Final', name: 'Daniela Herrera', responsibility: 'Operación del sistema y gestión de notificaciones.' },
   ],
+  architecture: [
+    { component: 'Cámara', description: 'Captura video en tiempo real del área drop-off.' },
+    { component: 'Detección', description: 'YOLOv8 y OpenCV detectan vehículos con bounding boxes precisos.' },
+    { component: 'Tracking', description: 'Asigna IDs únicos y mide permanencia de cada vehículo.' },
+    { component: 'Alerta', description: 'Genera alerta tipo MULTA al superar el umbral de tiempo.' },
+    { component: 'Dashboard', description: 'Muestra KPIs, incidentes y métricas operacionales.' },
+  ],
+  incidentFlow: [
+    { step: '01', title: 'Vehículo ingresa al área', description: 'Detección inicial con asignación de ID único.' },
+    { step: '02', title: 'Inicio del cronómetro', description: 'Medición de permanencia en tiempo real.' },
+    { step: '03', title: 'Superación del umbral', description: 'El sistema detecta la infracción automáticamente.' },
+    { step: '04', title: 'Alerta y registro', description: 'Generación de alerta MULTA e historial del incidente.' },
+  ],
+  mitigationPlans: [
+    {
+      riskId: '1.2',
+      risk: 'Errores en IA',
+      preventive: 'Validar modelo con datos reales del entorno.',
+      corrective: 'Reentrenar IA con nuevos casos detectados.',
+    },
+    {
+      riskId: '1.3',
+      risk: 'Bugs de software',
+      preventive: 'Testing continuo e iterativo del pipeline.',
+      corrective: 'Actualización y parches del sistema.',
+    },
+    {
+      riskId: '1.7',
+      risk: 'Caída del sistema',
+      preventive: 'Mantención preventiva programada.',
+      corrective: 'Recuperación de servicios críticos.',
+    },
+    {
+      riskId: '5.2',
+      risk: 'Ciberataque',
+      preventive: 'Firewalls y control de permisos de acceso.',
+      corrective: 'Restaurar desde respaldos seguros.',
+    },
+  ],
+  simulations: [
+    {
+      title: 'Infracción vehicular — permanencia excesiva',
+      date: '2026-06-07',
+      description:
+        'Escenario real donde un vehículo excede el tiempo permitido en el área drop-off. El sistema respondió de forma completamente automática.',
+      actions: [
+        'Vehículo ingresa y recibe ID único de tracking.',
+        'Cronómetro mide permanencia en tiempo real.',
+        'Al superar umbral, se detecta infracción automáticamente.',
+        'Se genera alerta MULTA y registro del incidente.',
+      ],
+      outcome: 'Respuesta automática ante eventos críticos validada en video demo_procesada.mp4.',
+    },
+    {
+      title: 'Caída del sistema de monitoreo',
+      date: '2026-07-30',
+      description:
+        'Durante pruebas finales, el servidor presenta falla inesperada interrumpiendo monitoreo de cámaras y envío de notificaciones.',
+      actions: [
+        'Usuario final informa la falla al Jefe de Proyecto.',
+        'Equipo de Desarrollo verifica la causa del problema.',
+        'Se activa el plan correctivo definido para este riesgo.',
+        'Se reinician servicios y se restauran procesos necesarios.',
+        'Pruebas confirman correcto funcionamiento del sistema.',
+      ],
+      outcome:
+        'Servicio restablecido en tiempo reducido, minimizando impacto en cronograma y permitiendo continuar pruebas.',
+    },
+  ],
+  conclusions: [
+    'Inteligencia Artificial: detección y tracking de vehículos con YOLOv8 y OpenCV en tiempo real.',
+    'Gestión de Riesgos: 29 riesgos identificados, clasificados y monitoreados con matriz cuantitativa.',
+    'Dashboard Interactivo: monitoreo visual con KPIs, alertas y métricas operacionales.',
+    'Seguridad Operacional: reducción de congestión, mayor seguridad estudiantil y control automatizado.',
+    'La solución integra IA y Gestión de Riesgos en un entorno real, con potencial de escalabilidad institucional.',
+  ],
   context: {
     problem:
-      'Apoderados exceden el tiempo permitido (4 min) en el área drop off del colegio, generando congestión vehicular y riesgos para la seguridad de los estudiantes.',
+      'El área drop-off presenta uso inadecuado que compromete la seguridad y la fluidez del tránsito. Sin control automatizado, los incidentes se acumulan sin respuesta oportuna.',
+    problemPoints: [
+      'Apoderados exceden el tiempo permitido de permanencia.',
+      'Congestión vehicular recurrente en horas punta.',
+      'Riesgos directos para la seguridad de estudiantes.',
+      'Necesidad urgente de monitoreo automatizado en tiempo real.',
+    ],
     solution:
-      'Sistema de cámaras con IA y software de monitoreo que detecta infracciones, mide permanencia y emite notificaciones automáticas.',
+      'Arquitectura basada en visión computacional y aprendizaje automático: YOLOv8 para detección, OpenCV para procesamiento, tracking persistente, alertas automáticas y dashboard interactivo.',
     scope:
       'Diseño, adquisición e implementación de 2 cámaras IA, software de monitoreo, integración HW/SW, pruebas y puesta en marcha. No incluye mantención posterior ni expansión.',
     functionalRequirements: [
